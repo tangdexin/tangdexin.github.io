@@ -122,7 +122,7 @@ function Clock(props) {
     </div>
   );
 }
-//现 类组件 (还有一种老方法，React.createClass，区别点击[链接](http://blog.csdn.net/u014695532/article/details/52830545)
+//现 类组件 
 class Clock extend React.Component{
     render(){
       return (
@@ -134,3 +134,6 @@ class Clock extend React.Component{
     }
 }
 ```
+还有一种老方法，React.createClass，区别点击[链接](http://blog.csdn.net/u014695532/article/details/52830545)
+
+test[test](https://tangdexin.github.io/test.md)

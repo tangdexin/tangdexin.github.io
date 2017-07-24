@@ -102,3 +102,35 @@ function Avatar(props) {
 ```
 ### props的只读性
 像纯函数那样使用props：当它没有改变它自己的输入值，当传入的值相同时，总是会返回相同的结果。state可以在不违反上面规则的前提下，动态改变输出
+
+## state和生命周期
+定义为类的组件，才有额外的特性。
+### 将函数转换为类
+方法步骤：
+1.创建一个名称扩展为React.Component的ES6 类
+2.创建一个叫做render()的空方法
+3.将函数体移动到render()方法中
+4.在render()方法中，使用this.props替换props
+5.删除剩余的空函数声明
+```markdown
+//原 函数定义的组件
+function Clock(props) {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+//现 类组件
+class Clock extend React.Component{
+    render(){
+      return (
+        <div>
+          <h1>Hello, world!</h1>
+          <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+        </div>
+  );
+    }
+}
+```

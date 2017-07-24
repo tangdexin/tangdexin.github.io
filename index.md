@@ -73,3 +73,30 @@ function App() {
 }
 ```
 ### 组件提取（重点）
+```markdown
+//原复杂组件，不可重用
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <div className="UserInfo">
+        <img className="Avatar"
+             src={props.author.avatarUrl}
+             alt={props.author.name} />
+      </div>
+    </div>
+  );
+}
+//拿出来独立的部分，自定义组件（因为是组件，所以author和user究竟叫什么，意义不大，只要组件易懂即可）
+function Avatar(props) {
+  return (
+    <img className="Avatar"
+      src={props.user.avatarUrl}
+      alt={props.user.name}
+    />
+  );
+}
+//当需要使用Avatar这个组件的时候，传入属性值，能够从父组件得到数据即可，这里假设，父组件的属性，就是命名为author，现在使用Avatar：
+<Avatar user={props.author} />
+//可以看到，这里，Avatar就的user就是它父组件的author，获得了属性值。这就是最基本的组件提取
+
+```

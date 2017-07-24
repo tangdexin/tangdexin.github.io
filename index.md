@@ -29,4 +29,19 @@ const element = <img src={user.avatarUrl}></img>;
 标签是闭合的，必须像HTML那样有结尾，如  />      **JSX使用驼峰法定义属性名称，更像JS**
 ### JSX代表objects 对象
 
-
+## 组件
+组件从概念上看就像是函数，它可以接收任意的输入值（称之为“props”），并返回一个需要在页面上展示的React元素。
+**props就像是即将传入组件的参数**
+下方是定义一个组件的方法，它接收一个单一的**props”对象**并返回一个React元素。我们之所以称这种类型的组件为函数定义组件，是因为从字面上来看，它就是一个JavaScript函数。
+```markdown
+//使用JS函数
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+//使用ES6 class
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```

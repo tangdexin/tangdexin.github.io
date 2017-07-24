@@ -27,8 +27,7 @@ const element = <div tabIndex="0"></div>;
 const element = <img src={user.avatarUrl}></img>;
 ```
 #### JSX嵌套
-标签是闭合的，必须像HTML那样有结尾，如  />
-**JSX使用驼峰法定义属性名称，更像JS**
+标签是闭合的，必须像HTML那样有结尾，如  />      **JSX使用驼峰法定义属性名称，更像JS**
 #### JSX代表objects 对象
 
 

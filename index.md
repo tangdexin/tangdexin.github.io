@@ -107,11 +107,11 @@ function Avatar(props) {
 定义为类的组件，才有额外的特性。
 ### 将函数转换为类
 方法步骤：
-1.创建一个名称扩展为React.Component的ES6 类
-2.创建一个叫做render()的空方法
-3.将函数体移动到render()方法中
-4.在render()方法中，使用this.props替换props
-5.删除剩余的空函数声明
+1. 创建一个名称扩展为React.Component的ES6 类
+2. 创建一个叫做render()的空方法
+3. 将函数体移动到render()方法中
+4. 在render()方法中，使用this.props替换props
+5. 删除剩余的空函数声明
 ```markdown
 //原 函数定义的组件
 function Clock(props) {

@@ -45,3 +45,31 @@ class Welcome extends React.Component {
   }
 }
 ```
+### 组件渲染
+当React遇到的元素是用户自定义的组件，它会将JSX属性作为**单个对象**传递给该组件,**这个对象称之为“props”**。例如,这段代码会在页面上渲染出"Hello,Sara":
+```markdown
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+const element = <Welcome name="Sara" />;
+ReactDOM.render(
+  element,
+  document.getElementById('root')
+);
+```
+**组件必须以大写字母开头**
+### 组件组合
+组件可以组合，但是：**组件的返回值只能有一个根元素。这也是我们要用一个div包裹组件元素的原因**
+```markdown
+function App() {
+  return (
+    <div>
+      <Welcome name="Sara" />
+      <Welcome name="Cahal" />
+      <Welcome name="Edite" />
+    </div>
+  );
+}
+```
+### 组件提取（重点）

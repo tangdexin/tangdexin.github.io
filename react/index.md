@@ -303,7 +303,7 @@ this.state = {value: 'lime'};
 ```
 ### 多个输入框的解决办法
 当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么。
-```js
+```react
 class Reservation extends React.Component {
   constructor(props) {
     super(props);

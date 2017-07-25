@@ -252,3 +252,33 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+### 用keys提取组件
+官方文档的解释有点不够清晰
+实际上，在哪输出列表，就是在哪定义key。即使使用某组件接收列表值，也是在接收的时候定义key，而不是在这个组件中定义key。其实这个稍微想一想就可以理解了。
+组件就是放在那给大家使用的，谁都能用，你给他定义了key，那怎么玩？
+```js
+function ListItem(props) {
+  // 对啦！这里不需要明确出key:
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // 又对啦！key应该在数组中被明确出来
+    <ListItem key={number.toString()}
+              value={number} />
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```

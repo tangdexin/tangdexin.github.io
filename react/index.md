@@ -222,3 +222,15 @@ class Clock extend React.Component{
         document.getElementById('root')
       );
 ```
+## 条件渲染
+与JS种使用没什么区别，使用较简单
+### 与运算符 && 的特性
+```js
+{unreadMessages.length > 0 &&
+        <h2>
+          You have {unreadMessages.length} unread messages.
+        </h2>
+      }
+```
+**在 JavaScript 中，true && expression 总是返回 expression，而 false && expression 总是返回 false。因此，如果条件是 true，&& 右侧的元素就会被渲染，如果是 false，React 会忽略并跳过它。**
+

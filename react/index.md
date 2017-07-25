@@ -284,6 +284,7 @@ ReactDOM.render(
 ```
 ## 表单
 ### 受控组件
+
 像<input>,<textarea>, 和 <select>这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新
 
 这边直接可以在文档中查看，[链接](https://discountry.github.io/react/docs/forms.html#受控组件)
@@ -300,7 +301,8 @@ this.state = {value: 'lime'};
 ```
 ### 多个输入框的解决办法
 当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么。
-```jsclass Reservation extends React.Component {
+```js
+class Reservation extends React.Component {
   constructor(props) {
     super(props);
     //this.state这边设置默认值

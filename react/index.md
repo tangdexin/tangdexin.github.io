@@ -356,3 +356,56 @@ class Reservation extends React.Component {
 }
 
 ```
+## 组合继承
+首先**`children`是保留关键字**，在使用props.children的时候，才能在组件中直接嵌套JSX
+只有当此处是children时，才能在组件中直接嵌套JSX。自定义的组件应当属性传递给父组件
+```react
+function Child() {
+  return <div>子组件</div>;
+}
+function Father(props) {
+  return (
+    <div>
+      <p>父组件</p>
+      {props.aaa}
+    </div>
+  );
+}
+function App() {
+  return (
+    <Father aaa={<Child/>}>
+      <p>直接嵌套的JSX</p>
+    </Father>
+  );
+}
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+);
+//上面的代码显示为：父组件 子组件
+
+function Child() {
+  return <div>子组件</div>;
+}
+function Father(props) {
+  return (
+    <div>
+      <p>父组件</p>
+      {props.children}
+    </div>
+  );
+}
+function App() {
+  return (
+    <Father children={<Child/>}>
+      <p>直接嵌套的JSX</p>
+    </Father>
+  );
+}
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+);
+//上面的代码显示为： 父组件 直接嵌套的JSX
+
+```

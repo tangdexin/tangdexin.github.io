@@ -285,9 +285,9 @@ ReactDOM.render(
 ## 表单
 ### 受控组件
 
-像<input>,<textarea>, 和 <select>这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新
+像```<input><textarea>, 和 <select>```这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新
 
-这边直接可以在文档中查看，[链接](https://discountry.github.io/react/docs/forms.html)
+这边直接可以在文档中查看，[链接](https://discountry.github.io/react/docs/forms.html#受控组件)
 
 在react中,<input>,<textarea><select>是非常相似的，也是用this.state = {value: '你好.'};设置默认值。用handleChange(event) {this.setState({value: event.target.value});}获取输入值，用 <textarea value={this.state.value} onChange={this.handleChange} />动态渲染输入值。
 

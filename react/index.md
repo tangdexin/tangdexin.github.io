@@ -135,5 +135,90 @@ class Clock extend React.Component{
 }
 ```
 还有一种老方法，React.createClass，区别点击[链接](http://blog.csdn.net/u014695532/article/details/52830545)
+## 事件处理
+### 语法不同
+1. React事件绑定属性的命名采用驼峰式写法，而不是小写。
+2. 如果采用 JSX 的语法你需要传入一个函数作为事件处理函数，而不是一个字符串(DOM元素的写法)
+```js
+//HTML写法
+<button onclick="activateLasers()">
+  Activate Lasers
+</button>
+//JSX写法
+<button onClick={activateLasers}>
+  Activate Lasers
+</button>
+```
+### 阻止默认行为
+不能使用返回 false 的方式阻止默认行为。你必须明确的使用 preventDefault
+```js
+//HTML
+<a href="#" onclick="console.log('The link was clicked.'); return false">
+  Click me
+</a>
+//reafunction ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
 
-test[test](https://tangdexin.github.io/test.md)
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
+```
+#### 2种事件处理的写法（疑问：为什么必须将handleClick: function(event)等换成handleClick(event)才能顺利运行？）
+```js
+//第一种，ES6写法
+ class LikeButton extends React.Component {
+	       constructor(props) {
+         super(props);
+         this.state = {liked: true};
+		      this.handleClick = this.handleClick.bind(this);
+      }
+         getInitialState() {
+          return {liked: false};
+        }
+        handleClick(event) {
+          this.setState({liked: !this.state.liked});
+        }
+        render() {
+          var text = this.state.liked ? '喜欢' : '不喜欢';
+          return (
+            <p onClick={this.handleClick}>
+              你<b>{text}</b>我。点我切换状态。
+            </p>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <LikeButton />,
+        document.getElementById('root')
+      );
+      
+ //第二种
+  var LikeButton = React.createClass({
+        getInitialState: function() {
+          return {liked: false};
+        },
+        handleClick: function(event) {
+          this.setState({liked: !this.state.liked});
+        },
+        render: function() {
+          var text = this.state.liked ? '喜欢' : '不喜欢';
+          return (
+            <p onClick={this.handleClick}>
+              你<b>{text}</b>我。点我切换状态。
+            </p>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <LikeButton />,
+        document.getElementById('root')
+      );
+```

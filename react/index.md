@@ -289,7 +289,7 @@ ReactDOM.render(
 
 这边直接可以在文档中查看，[链接](https://discountry.github.io/react/docs/forms.html#受控组件)
 
-在react中,<input>,<textarea><select>是非常相似的，也是用this.state = {value: '你好.'};设置默认值。用handleChange(event) {this.setState({value: event.target.value});}获取输入值，用 <textarea value={this.state.value} onChange={this.handleChange} />动态渲染输入值。
+在react中,```<input>,<textarea><select>```是非常相似的，也是用```this.state = {value: '你好.'};```设置默认值。用```handleChange(event) {this.setState({value: event.target.value});}```获取输入值，用``` <textarea value={this.state.value} onChange={this.handleChange} />```动态渲染输入值。
 
 但是**在React中，会在根select标签上而不是在当前的selected属性上使用value属性。**[代码链接](https://codepen.io/gaearon/pen/JbbEzX?editors=0010)
 ```js

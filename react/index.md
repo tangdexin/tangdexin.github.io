@@ -298,3 +298,57 @@ this.state = {value: 'lime'};
 <option value="grapefruit">Grapefruit</option>
 <option value="lime">Lime</option>
 ```
+### 多个输入框的解决办法
+当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么。
+```jsclass Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    //this.state这边设置默认值
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    //定义目标的name值
+    const name = target.name;
+
+    //this.setState这边根据标签的name，来确定设置的值
+     this.setState({
+      [name]: value
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+	  //这里的name
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+	  //这里的name
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+    );
+  }
+}
+
+```

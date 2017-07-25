@@ -237,7 +237,7 @@ class Clock extend React.Component{
 **在 JavaScript 中，true && expression 总是返回 expression，而 false && expression 总是返回 false。因此，如果条件是 true，&& 右侧的元素就会被渲染，如果是 false，React 会忽略并跳过它。**
 ## 列表 keys
 ### map()函数
-```js
+```react
 const numbers = [1, 2, 3, 4, 5];
 const doubled = numbers.map((number) => number * 2);
 console.log(doubled);//[2, 4, 6, 8, 10]

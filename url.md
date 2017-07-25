@@ -1,5 +1,5 @@
 # tangdexin.github.io
-汤德鑫
+`汤德鑫`
 markdown的说明书https://guides.github.com/features/mastering-markdown/
 
 
@@ -36,6 +36,11 @@ tdx
     `nihao`
     *nihao*
     **nihao**
+```
+```javascript
+function(){
+retrun 'niubi';
+}
 ```
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 

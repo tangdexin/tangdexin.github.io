@@ -294,7 +294,7 @@ ReactDOM.render(
 在react中,```<input>,<textarea><select>```是非常相似的，也是用```this.state = {value: '你好.'};```设置默认值。用```handleChange(event) {this.setState({value: event.target.value});}```获取输入值，用``` <textarea value={this.state.value} onChange={this.handleChange} />```动态渲染输入值。
 
 但是**在React中，会在根select标签上而不是在当前的selected属性上使用value属性。**[代码链接](https://codepen.io/gaearon/pen/JbbEzX?editors=0010)
-```js
+```react
 //通过以下代码可以看到，{value: 'lime'}中的默认值是小写的，即，是标签上的属性，否则默认选择第一个属性
 this.state = {value: 'lime'};
 //省略代码

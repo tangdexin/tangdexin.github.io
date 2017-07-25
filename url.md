@@ -31,6 +31,11 @@ Syntax highlighted code block
 
 ```markdown
 tdx
+    nihao
+    'nihao'
+    `nihao`
+    *nihao*
+    **nihao**
 ```
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 

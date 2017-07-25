@@ -141,7 +141,7 @@ class Clock extend React.Component{
 ### 语法不同
 1. React事件绑定属性的命名采用驼峰式写法，而不是小写。
 2. 如果采用 JSX 的语法你需要传入一个函数作为事件处理函数，而不是一个字符串(DOM元素的写法)
-```js
+```react
 //HTML写法
 <button onclick="activateLasers()">
   Activate Lasers
@@ -153,7 +153,7 @@ class Clock extend React.Component{
 ```
 ### 阻止默认行为
 不能使用返回 false 的方式阻止默认行为。你必须明确的使用 preventDefault
-```js
+```react
 //HTML
 <a href="#" onclick="console.log('The link was clicked.'); return false">
   Click me
@@ -172,7 +172,7 @@ class Clock extend React.Component{
 }
 ```
 #### 2种事件处理的写法（疑问：为什么必须将handleClick: function(event)等换成handleClick(event)才能顺利运行？）
-```js
+```react
 //第一种，ES6写法
  class LikeButton extends React.Component {
 	       constructor(props) {
@@ -227,7 +227,7 @@ class Clock extend React.Component{
 ## 条件渲染
 与JS种使用没什么区别，使用较简单
 ### 与运算符 && 的特性
-```js
+```react
 {unreadMessages.length > 0 &&
         <h2>
           You have {unreadMessages.length} unread messages.
@@ -243,7 +243,7 @@ const doubled = numbers.map((number) => number * 2);
 console.log(doubled);//[2, 4, 6, 8, 10]
 ```
 使用map()渲染列表
-```js
+```react
 const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((numbers) =>
   <li>{numbers}</li>
@@ -258,7 +258,7 @@ ReactDOM.render(
 官方文档的解释有点不够清晰
 实际上，在哪输出列表，就是在哪定义key。即使使用某组件接收列表值，也是在接收的时候定义key，而不是在这个组件中定义key。其实这个稍微想一想就可以理解了。
 组件就是放在那给大家使用的，谁都能用，你给他定义了key，那怎么玩？
-```js
+```react
 function ListItem(props) {
   // 对啦！这里不需要明确出key:
   return <li>{props.value}</li>;

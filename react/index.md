@@ -356,6 +356,8 @@ class Reservation extends React.Component {
 }
 
 ```
+## 状态提升
+点击[链接](https://discountry.github.io/react/docs/lifting-state-up.html)参考详细文档
 ## 组合继承
 首先**`children`是保留关键字**，在使用props.children的时候，才能在组件中直接嵌套JSX
 只有当此处是children时，才能在组件中直接嵌套JSX。自定义的组件应当属性传递给父组件

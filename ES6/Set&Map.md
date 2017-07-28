@@ -79,7 +79,8 @@ set.add(5);
 set.add("5");
 console.log(set.size);//2
 
-//key1 与 key2 并不会被转换为字符串，所以它们在这个 Set 内部被认为是两个不同的项（记住：如果它们被转换为字符串，那么都会等于 "[object Object]" 
+//key1 与 key2 并不会被转换为字符串，所以它们在这个 Set 内部被认为是两个不同的项（记住：如果它们被转换为字符串，
+//那么都会等于 "[object Object]" 
 let set2 = new Set(),
     key1 = {},
     key2 = {};

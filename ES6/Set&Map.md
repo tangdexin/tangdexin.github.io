@@ -14,8 +14,7 @@ map[5] = "foo";
 console.log(map["5"]);      // "foo"
 map[tdx];//报错
 ```
-:boom: 
-#### 引申 
+:boom:**引申 **
 知识来源于红皮书第五版 5.1 Object类型
 * 在使用对象字面量语法时，属性名也可以使用字符串，如下方代码；
 * 在 使用方括号语法时，应该将要访问的属性以字符串的形式放在括号中
@@ -42,8 +41,7 @@ map['tdx'] = "foo";
 map.tdx="oof";
 console.log(map['tdx']);//off
 ```
-:boom: 
-#### 引申结束
+:boom:**引申结束**
 若使用对象作为键，就会出现另一个问题，例如：
 ```js
 let map = Object.create(null),

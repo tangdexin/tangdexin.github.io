@@ -97,4 +97,12 @@ set2.add(key1);
 set2.add(key2);
 console.log(set2.size);    // 2从
 ```
+如果 add() 方法用相同值进行了多次调用，那么在第一次之后的调用实际上会被忽略：
+```js
+let set = new Set();
+set.add(5);
+set.add("5");
+set.add(5);     // 重复了，该调用被忽略
 
+console.log(set.size);    // 2
+```

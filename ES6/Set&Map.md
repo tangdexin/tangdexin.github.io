@@ -63,3 +63,26 @@ if (map.count) {
     // ...
 }
 ```
+## ES6的Set
+ES6中Set类型|ES5中
+----|----
+**无重复值**的**有序列表**|  /
+不会使用强制类型转换来判断值是否重复|  /
+向 Set 添加多个对象，它们不会被合并为同一项|  /
+**例外是** +0 与 -0 在 Set 中被判断为是相等的|  /
+请看下方代码
+```js
+//Set 不会使用强制类型转换来判断值是否重复。这意味着 Set 可以同时包含数值 5 与 字符串 "5" ，将它们都作为相对独立的项
+let set = new Set();
+set.add(5);
+set.add("5");
+console.log(set.size);//2
+
+//key1 与 key2 并不会被转换为字符串，所以它们在这个 Set 内部被认为是两个不同的项（记住：如果它们被转换为字符串，那么都会等于 "[object Object]" 
+let set2 = new Set(),
+    key1 = {},
+    key2 = {};
+set2.add(key1);
+set2.add(key2);
+console.log(set2.size);    // 2
+```

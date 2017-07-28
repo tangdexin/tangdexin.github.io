@@ -1,5 +1,5 @@
-# [HOME](https://tangdexin.github.io)  ||  [REACT](https://tangdexin.github.io/react/index)  ||  [ES6](tangdexin.github.io/ES6/index) 
-## [Set&Map](tangdexin.github.io/ES6/Set&Map)
+# [HOME](https://tangdexin.github.io)  ||  [REACT](https://tangdexin.github.io/react/index)  ||  [ES6](https://tangdexin.github.io/ES6/index) 
+## [Set&Map](https://tangdexin.github.io/ES6/Set&Map)
 
 # Set 和 Map
 ## 背景

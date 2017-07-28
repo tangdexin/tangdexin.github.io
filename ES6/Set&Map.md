@@ -14,10 +14,10 @@ Set | Map
 ```javascript
 let map = Object.create(null);
 map[5] = "foo";
-console.log(map["5"]);      // "foo"
+console.log(map["5"]);// "foo"
 map[tdx];//报错
 ```
-:boom: **引申**
+**引申**
 知识来源于红皮书第五版 5.1 Object类型
 * 在使用对象字面量语法时，属性名也可以使用字符串，如下方代码；
 * 在 使用方括号语法时，应该将要访问的属性以字符串的形式放在括号中
@@ -44,7 +44,7 @@ map['tdx'] = "foo";
 map.tdx="oof";
 console.log(map['tdx']);//off
 ```
-:boom: **引申结束**
+**引申结束**
 * 若使用对象作为键，就会出现另一个问题，例如：
 ```js
 let map = Object.create(null),
@@ -99,9 +99,17 @@ let set2 = new Set(),
     key2 = {};
 set2.add(key1);
 set2.add(key2);
-console.log(set2.size);    // 2从
+console.log(set2.size);    // 2
 ```
+如果 add() 方法用相同值进行了多次调用，那么在第一次之后的调用实际上会被忽略：
+```js
+let set = new Set();
+set.add(5);
+set.add("5");
+set.add(5);     // 重复了，该调用被忽略
 
+console.log(set.size);    // 2
+```
 #### has()
 你可以使用 has() 方法来测试某个值是否存在于 Set 中，就像这样：
 ```js
@@ -132,19 +140,30 @@ set.clear();
 console.log(set.has("5"));  // false
 console.log(set.size);   
 ```
-#### :sparkles:用法和特例
-如果 add() 方法用相同值进行了多次调用，那么在第一次之后的调用实际上会被忽略：
-```js
-let set = new Set();
-set.add(5);
-set.add("5");
-set.add(5);     // 重复了，该调用被忽略
-
-console.log(set.size);    // 2
-```
+### 用法和要点
 使用数组来初始化一个 Set ， Set 构造器会确保不重复地使用这些值。虽然数值 5 在数组中出现了四次，但 Set 中却只有一个 5 。若要把已存在的代码或 JSON 结构转换为 Set 来使用，这种特性会让转换更轻松。
+`new Set()`一个数组，会生成一个没有重复值的对象;
 ```js
 let set = new Set([1, 2, 3, 4, 5, 5, 5, 5]);
 console.log(set.size);    // 5
-console.log(set);//[1,2,3,4,5]
+console.log(set);//{1,2,3,4,5}
+```
+对这个对象使用扩展运算符也能简单地将 Set 转换回数组。
+```js
+//注意这段代码和上段代码的区别。使用了[...]
+let set2 = new Set([1, 2, 3, 3, 3, 4, 5]),
+    array = [...set2];
+console.log(set2);//{1,2,3,4,5}
+console.log(array);//[1,2,3,4,5]
+```
+#### 综合用法
+ `Set` 清除了重复值之后，又使用了扩展运算符将自身的项放到一个新数组中。而这个 `Set `仍然包含在创建时所接收的项（ 1 、 2 、 3 、 4 与 5 ），这些项只是被**复制**到了新数组中，而并未从` Set `中消失。
+当已经存在一个数组，而你想用它创建一个无重复值的新数组时，该方法十分有用。例如：
+```js
+function eliminateDuplicates(items) {
+    return [...new Set(items)];
+}
+let numbers = [1, 2, 3, 3, 3, 4, 5],
+    noDuplicates = eliminateDuplicates(numbers);
+console.log(noDuplicates);      // [1,2,3,4,5]
 ```

@@ -75,11 +75,12 @@ ES6中Set类型特点|ES5中
 属性和方法名|用途
 ----|----
 size|查看看其中包含有多少项
-add()|向 Set 中添加项目
+add()|向Set中添加项目**（添加重复值自动忽略）**
 delete()|移除单个值
 clear()|将所有值从 Set 中移除
 forEach()|下方详细讲
-#### 创建Set并使用add()添加项目
+has()|检测某值是否在Set中
+#### size  add() 
 `Set `不会使用强制类型转换来判断值是否重复。这意味着 `Set` 可以同时包含数值` 5 `与 字符串` "5" `，将它们都作为相对独立的项.
 请看下方代码:
 ```js
@@ -97,6 +98,38 @@ set2.add(key1);
 set2.add(key2);
 console.log(set2.size);    // 2从
 ```
+
+#### has()
+你可以使用 has() 方法来测试某个值是否存在于 Set 中，就像这样：
+```js
+let set = new Set();
+set.add(5);
+set.add("5");
+
+console.log(set.has(5));// true
+console.log(set.has(6));//false  此处的 Set 不包含 6 这个值，因此 set.has(6) 会返回 false 
+```
+
+#### delete() clear()
+`delete() `方法来移除单个值，` clear()` 方法来将所有值从` Set `中移除
+```js
+let set = new Set();
+set.add(5);
+set.add("5");
+
+console.log(set.has(5));    // true
+
+set.delete(5);
+
+console.log(set.has(5));    // false
+console.log(set.size);      // 1
+
+set.clear();
+
+console.log(set.has("5"));  // false
+console.log(set.size);   
+```
+#### :sparkles:用法和特例
 如果 add() 方法用相同值进行了多次调用，那么在第一次之后的调用实际上会被忽略：
 ```js
 let set = new Set();
@@ -105,4 +138,10 @@ set.add("5");
 set.add(5);     // 重复了，该调用被忽略
 
 console.log(set.size);    // 2
+```
+使用数组来初始化一个 Set ， Set 构造器会确保不重复地使用这些值。虽然数值 5 在数组中出现了四次，但 Set 中却只有一个 5 。若要把已存在的代码或 JSON 结构转换为 Set 来使用，这种特性会让转换更轻松。
+```js
+let set = new Set([1, 2, 3, 4, 5, 5, 5, 5]);
+console.log(set.size);    // 5
+console.log(set);//[1,2,3,4,5]
 ```

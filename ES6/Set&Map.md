@@ -45,8 +45,8 @@ map.tdx="oof";
 console.log(map['tdx']);//off
 ```
 **引申结束**
-* 若使用对象作为键，就会出现另一个问题，例如：
 
+* 若使用对象作为键，就会出现另一个问题，如下
 ```js
 let map = Object.create(null),
     key1 = {},

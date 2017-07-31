@@ -239,8 +239,10 @@ delete(key) ：移除 Map 中的键以及对应的值；
 clear() ：移除 Map 中所有的键与值;
 size : 指定包含多少键值对
 ```
+### Map的初始化
+
 ### forEach
-这个与Set最大的区别，就是参数。即：第一个参数是值、第二个参数则是键（数组中的键是数值索引，第三个参数是Map本身。
+这个与Set最大的区别，就是参数。即：第一个参数是值、第二个参数则是键（数组中的键是数值索引），第三个参数是Map本身。
 ```js
 let map = new Map([ ["name", "Nicholas"], ["age", 25]]);
 map.forEach(function(value, key, ownerMap) {

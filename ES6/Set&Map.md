@@ -5,7 +5,7 @@
 ## 背景
 JS以前只存在一种集合类型———数组类型。数组在 JS 中的使用正如其他语言的数组一样，但缺少更多类型的集合导致数组也经常被当作队列与栈来使用。数组只使用了数值型的索引，而如果非数值型的索引是必要的，开发者便会使用非数组的对象。这种技巧引出了非数组对象的定制实现，即 Set 与 Map 。
 ## Set和Map的区别
-Set|Map
+Set | Map
 ----|----
 不包含重复值，列表|键值对，每项两个数据
 多用来检测某个值是否存在|通过指定所需读取的键即可检索对应的值
@@ -143,6 +143,21 @@ set.clear();
 console.log(set.has("5"));  // false
 console.log(set.size);   
 ```
+### forEach()方法
+`Set`没有键,所以将 `Set `中的每一项同时认定为键与值。
+```js
+let set = new Set([1, 2]);
+//下方代码中，value和key是相等的，同时 ownerSet 也始终等于 set
+set.forEach(function(value, key, ownerSet) {
+    console.log(key + " " + value);
+    console.log(ownerSet === set);
+});
+//上面代码的输出如下
+1 1
+true
+2 2
+true
+```
 ### 用法和要点
 使用数组来初始化一个 Set ， Set 构造器会确保不重复地使用这些值。虽然数值 5 在数组中出现了四次，但 Set 中却只有一个 5 。若要把已存在的代码或 JSON 结构转换为 Set 来使用，这种特性会让转换更轻松。
 `new Set()`一个数组，会生成一个没有重复值的对象;
@@ -170,3 +185,69 @@ let numbers = [1, 2, 3, 3, 3, 4, 5],
     noDuplicates = eliminateDuplicates(numbers);
 console.log(noDuplicates);      // [1,2,3,4,5]
 ```
+### Weak Set
+由于`Set`类型储存对象采取的是引用类型，所以只要`Set`实例的引用依然存在，所储存的对象就无法被垃圾回收机制回收，从而无法释放内存。
+```js
+let set = new Set(),
+    key = {};
+set.add(key);
+console.log(set.size);      // 1
+// 取消原始引用
+key = null;
+console.log(set.size);      // 1
+// 重新获得原始引用
+key = [...set][0];
+```
+如果上述代码中，当设置`key=null`后，让后续不能再访问到key的属性，可以采用WeakSet构造器来创建。该类型只允许存储对象弱引用，而不能存储基本类型的值。对象的弱引用在它自己成为该对象的唯一引用时，**不会阻止垃圾回收**。
+```js
+let set = new WeakSet(),
+    key = {};
+// 将对象加入 set
+set.add(key);
+console.log(set.has(key));      // true
+set.delete(key);
+console.log(set.has(key));      // false
+```
+## Map
+`Map`是键值对的有序列表,而键和值都可以是任意类型。键的比较使用的是 Object.is() ，因此你能将 5 与 "5" 同时作为键，因为它们类型不同。这与使用对象属性作为键的方式（指的是用对象来模拟 Map ）截然不同，因为对象的属性会被强制转换为字符串。
+```js
+let map = new Map();
+map.set("title", "Understanding ES6");
+map.set("year", 2016);
+
+console.log(map.get("title"));      // "Understanding ES6"
+console.log(map.get("year"));       /
+
+let map = new Map(),
+    key1 = {},
+    key2 = {};
+
+map.set(key1, 5);
+map.set(key2, 42);
+
+console.log(map.get(key1));         // 5
+console.log(map.get(key2));   
+```
+`Set`和`Map`具有部分相同的方法：
+```js
+has(key) ：判断指定的键是否存在于 Map 中；
+delete(key) ：移除 Map 中的键以及对应的值；
+clear() ：移除 Map 中所有的键与值;
+size : 指定包含多少键值对
+```
+### forEach
+这个与Set最大的区别，就是参数。即：第一个参数是值、第二个参数则是键（数组中的键是数值索引，第三个参数是Map本身。
+```js
+let map = new Map([ ["name", "Nicholas"], ["age", 25]]);
+map.forEach(function(value, key, ownerMap) {
+    console.log(key + " " + value);
+    console.log(ownerMap === map);
+});
+//输出
+name Nicholas
+true
+age 25
+true
+```
+### Weak Map
+ `WeakMap `类型是键值对的无序列表，其中键必须是非空的对象，值则允许是任意类型

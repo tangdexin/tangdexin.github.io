@@ -240,7 +240,57 @@ clear() ：移除 Map 中所有的键与值;
 size : 指定包含多少键值对
 ```
 ### Map的初始化
+```js
+let map = new Map([["name", "Nicholas"], ["age", 25]]);
+console.log(map.has("name"));   // true
+console.log(map.get("name"));   // "Nicholas"
+console.log(map.has("age"));    // true
+console.log(map.get("age"));    // 25
+console.log(map.size);          // 2
 
+//下面为Set的初始化，请与上方做对比，查看二者的不同之处：
+let set = new Set(["name","age"]);
+console.log(map);
+console.log(set);
+```
+
+如果读取一个未知的键，则返回undefined。
+```js
+new Map().get('asfddfsasadf') // undefined
+```
+如果对同一个键多次赋值，后面的值将覆盖前面的值；Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。这就解决了同名属性碰撞（clash）的问题，我们扩展别人的库的时候，如果使用对象作为键名，就不用担心自己的属性与原作者的属性同名。
+如果 Map 的键是一个简单类型的值（数字、字符串、布尔值），则只要两个值严格相等，Map 将其视为一个键，包括0和-0，布尔值true和字符串true则是两个不同的键。另外，undefined和null也是两个不同的键。虽然NaN不严格相等于自身，但 Map 将其视为同一个键。请看下面代码：
+
+```js
+{
+const map1 = new Map();
+map1
+.set(1, 'aaa')
+.set(1, 'bbb');
+let m1 = map1.get(1) 
+console.log(m1);// "bbb
+console.log(map1);
+
+const map2 = new Map();
+map2
+.set(['a'], 555);
+let m2 = map2.get(['a']) 
+console.log(m2);// undefined
+console.log(map2);//{["a"] => 555}
+
+const map3 = new Map();
+
+const k1 = ['a'];
+const k2 = ['a'];
+
+map3
+.set(k1, 111)
+.set(k2, 222);
+
+map3.get(k1) // 111
+map3.get(k2) //
+}
+```
 ### forEach
 这个与Set最大的区别，就是参数。即：第一个参数是值、第二个参数则是键（数组中的键是数值索引），第三个参数是Map本身。
 ```js
@@ -256,4 +306,40 @@ age 25
 true
 ```
 ### Weak Map
- `WeakMap `类型是键值对的无序列表，其中键必须是非空的对象，值则允许是任意类型
+ `WeakMap `类型是键值对的无序列表，其中键必须是**非空的对象**（null除外），值则允许是任意类型。
+#### 背景
+WeakMap的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。
+```js
+const e1 = document.getElementById('foo');
+const e2 = document.getElementById('bar');
+const arr = [
+  [e1, 'foo 元素'],
+  [e2, 'bar 元素'],
+];
+// 不需要 e1 和 e2 的时候
+// 必须手动删除引用
+arr [0] = null;
+arr [1] = null;
+```
+上面代码中，e1和e2是两个对象，我们通过arr数组对这两个对象添加一些文字说明。这就形成了arr对e1和e2的引用。一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放e1和e2占用的内存。上面这样的写法显然很不方便。一旦忘了写，就会造成内存泄露。
+WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
+基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用WeakMap结构。当该 DOM 元素被清除，其所对应的WeakMap记录就会自动被移除。
+**注意，WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用。**
+```js
+const wm = new WeakMap();
+let key = {};
+let obj = {foo: 1};
+
+wm.set(key, obj);
+obj = null;
+wm.get(key)
+// Object {foo: 1}
+```
+上面代码中，键值obj是正常引用。所以，即使在 WeakMap 外部消除了obj的引用，WeakMap 内部的引用依然存在。
+#### WeakMap语法
+`WeakMap` 与 `Map `在 API 上的区别主要是两个，一是没有遍历操作（即没有`key()`、`values()`和`entries()`方法），也没有`size`属性。WeakMap只有四个方法可用：`get()、set()、has()、delete()`。
+### 总结
+Set，有序、无重复值的列表。会自动移除重复值。Set 并不是数组的子类型，所以你无法随机访问其中的值。但你可以使用 has() 方法来判断某个值是否存在于 Set 中，或通过 size 属性来查看其中有多少个值。 Set 类型还拥有 forEach() 方法，用于处理每个值。
+Weak Set 是只能包含对象的特殊 Set 。其中的对象使用弱引用来存储，意味着当 Weak Set 中的项是某个对象的仅存引用时，它不会屏蔽垃圾回收。由于内存管理的复杂性， Weak Set 的内容不能被检查，因此最好将 Weak Set 仅用于追踪需要被归组在一起的对象。
+Map 是有序的键值对，其中的键允许是任何类型。与 Set 相似，通过调用 Object.is() 方法来判断重复的键，这意味着能将数值 5 与字符串 "5" 作为两个相对独立的键。使用 set() 方法能将任何类型的值关联到某个键上，并且该值此后能用 get() 方法提取出来。 Map 也拥有一个 size 属性与一个 forEach() 方法，让项目访问更容易。
+Weak Map 是只能包含对象类型的键的特殊 Map 。与 Weak Set 相似，键的对象引用是弱引用，因此当它是某个对象的仅存引用时，也不会屏蔽垃圾回收。当键被回收之后，所关联的值也同时从 Weak Map 中被移除。对于和对象相关联的附加信息来说，若要在访问它们的代码之外对其进行生命周期管理（也就是说，当在对象外部移除对象的引用时，要求其私有数据也能一并被销毁），则 Weak Map 在内存管理方面的特性让它们成为了唯一合适的选择

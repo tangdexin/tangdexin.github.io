@@ -233,7 +233,7 @@ console.log(map.get(key1));         // 5
 console.log(map.get(key2));   
 ```
 `Set`和`Map`具有部分相同的方法：
-```js
+```markdown
 has(key) ：判断指定的键是否存在于 Map 中；
 delete(key) ：移除 Map 中的键以及对应的值；
 clear() ：移除 Map 中所有的键与值;

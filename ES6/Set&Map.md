@@ -189,6 +189,7 @@ let numbers = [1, 2, 3, 3, 3, 4, 5],
     noDuplicates = eliminateDuplicates(numbers);
 console.log(noDuplicates);      // [1,2,3,4,5]
 ```
+**Set 构造器实际上可以接收任意可迭代对象作为参数。能使用数组是因为它们默认就是可迭代的， Set 与 Map 也是一样。 Set 构造器会使用迭代器来提取参数中的值。**
 ### Weak Set
 由于`Set`类型储存对象采取的是引用类型，所以只要`Set`实例的引用依然存在，所储存的对象就无法被垃圾回收机制回收，从而无法释放内存。
 ```js

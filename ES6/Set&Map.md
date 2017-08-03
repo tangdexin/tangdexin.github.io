@@ -213,6 +213,27 @@ console.log(set.has(key));      // true
 set.delete(key);
 console.log(set.has(key));      // false
 ```
+在上例中，一个数组被传给了 WeakSet 构造器。由于该数组包含了两个对象，这些对象就被添加到了 Weak Set 中。要记住若数组中包含了非对象的值，就会抛出错误，因为**`WeakSet` 构造器不接受基本类型的值**
+#### Set和Weak Set 差异
+Weak Set 与正规 Set 之间最大的区别是对象的弱引用。如下：
+```js
+let set = new WeakSet(),
+    key = {};
+// 将对象加入 set
+set.add(key);
+console.log(set.has(key));      // true
+// 移除对于键的最后一个强引用，同时从 Weak Set 中移除
+key = null;
+```
+当此代码被执行后， Weak Set 中的 key 引用就不能再访问了。核实这一点是不可能的，因为需要把对于该对象的一个引用传递给 has() 方法（而只要存在其他引用， Weak Set 内部的弱引用就不会消失）。这会使得难以对 Weak Set 的引用特征进行测试，但 JS 引擎已经正确地将引用移除了，这一点你可以信任。
+这些例子演示了 Weak Set 与正规 Set 的一些共有特征，但是它们还有一些关键的差异，即：
+1. 对于 WeakSet 的实例，若调用 add() 方法时传入了非对象的参数，就会抛出错误（ has() 或 delete() 则会在传入了非对象的参数时返回 false ）；
+2. Weak Set 不可迭代，因此不能被用在 for-of 循环中；
+3. Weak Set 无法暴露出任何迭代器（例如 keys() 与 values() 方法），因此没有任何编程手段可用于判断 Weak Set 的内容；
+4. Weak Set **没有 forEach() 方法**；
+5. Weak Set **没有 size 属性**；
+Weak Set 看起来功能有限，而这对于正确管理内存而言是必要的。一般来说，若只想追踪对象的引用，应当使用 Weak Set 而不是正规 Set 。
+Set 给了你处理值列表的新方式，不过若需要给这些值添加额外信息，它就没用了。这就是 ES6 还添加了 Map 类型的原因。
 ## Map
 `Map`是键值对的有序列表,而键和值都可以是任意类型。键的比较使用的是 Object.is() ，因此你能将 5 与 "5" 同时作为键，因为它们类型不同。这与使用对象属性作为键的方式（指的是用对象来模拟 Map ）截然不同，因为对象的属性会被强制转换为字符串。
 ```js

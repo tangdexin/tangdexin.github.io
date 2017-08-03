@@ -8,3 +8,6 @@ let [x = 1, y = x] = [1, 2]; // x=1; y=2
 let [x = y, y = 1] = [];     // ReferenceErro
 ```
 上面最后一个表达式之所以会报错，是因为x用到默认值y时，y还没有声明。
+
+## 迭代器和生成器
+在es6中集合对象 Array、Set、Map 与 String都是可迭代的
